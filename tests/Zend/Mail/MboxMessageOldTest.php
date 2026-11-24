@@ -19,7 +19,7 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id$
  */
-
+use PHPUnit\Framework\Attributes\Group;
 
 /**
  * Maildir class, which uses old message class
@@ -45,8 +45,8 @@ class Zend_Mail_Storage_Mbox_OldMessage extends Zend_Mail_Storage_Mbox
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @group      Zend_Mail
  */
+#[Group('Zend_Mail')]
 class Zend_Mail_MboxMessageOldTest extends PHPUnit\Framework\TestCase
 {
     protected $_mboxOriginalFile;

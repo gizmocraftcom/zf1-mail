@@ -19,7 +19,8 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id$
  */
-
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Group;
 
 class Zend_Mail_Header_HeaderValueTest extends PHPUnit\Framework\TestCase
 {
@@ -43,10 +44,8 @@ class Zend_Mail_Header_HeaderValueTest extends PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @dataProvider getFilterValues
-     * @group ZF2015-04
-     */
+    #[DataProvider('getFilterValues')]
+    #[Group('ZF2015-04')]
     public function testFilterValue($value, $expected)
     {
         $this->assertEquals($expected, Zend_Mail_Header_HeaderValue::filter($value));
@@ -69,10 +68,8 @@ class Zend_Mail_Header_HeaderValueTest extends PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @dataProvider validateValues
-     * @group ZF2015-04
-     */
+    #[DataProvider('validateValues')]
+    #[Group('ZF2015-04')]
     public function testValidateValue($value, $assertion)
     {
         $this->{$assertion}(Zend_Mail_Header_HeaderValue::isValid($value));
@@ -94,10 +91,8 @@ class Zend_Mail_Header_HeaderValueTest extends PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @dataProvider assertValues
-     * @group ZF2015-04
-     */
+    #[DataProvider('assertValues')]
+    #[Group('ZF2015-04')]
     public function testAssertValidRaisesExceptionForInvalidValues($value)
     {
         $this->expectException('Zend_Mail_Exception');

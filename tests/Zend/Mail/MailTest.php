@@ -19,7 +19,9 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id $
  */
-
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\DoesNotPerformAssertions;
+use PHPUnit\Framework\Attributes\Group;
 
 /**
  * Mock mail transport class for testing purposes
@@ -87,8 +89,8 @@ class Zend_Mail_Transport_Sendmail_Mock extends Zend_Mail_Transport_Sendmail
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @group      Zend_Mail
  */
+#[Group('Zend_Mail')]
 class Zend_Mail_MailTest extends PHPUnit\Framework\TestCase
 {
     protected $numAssertions;
@@ -170,9 +172,7 @@ class Zend_Mail_MailTest extends PHPUnit\Framework\TestCase
         $this->assertStringContainsString('Cal Evans <cal@example.com>', $mock->header);
     }
 
-    /**
-     * @group ZF-8503 Test recipients Header format.
-     */
+    #[Group('ZF-8503')]
     public function testRecipientsHeaderFormat()
     {
         $mail = new Zend_Mail();
@@ -260,9 +260,7 @@ class Zend_Mail_MailTest extends PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @group ZF-7799
-     */
+    #[Group('ZF-7799')]
     public function testHeaderSendMailTransportHaveNoRightTrim()
     {
         $mail = new Zend_Mail('UTF-8');
@@ -814,9 +812,7 @@ class Zend_Mail_MailTest extends PHPUnit\Framework\TestCase
         $this->assertFalse(isset($mock->headers['Message-Id']));
     }
 
-    /**
-     * @group ZF-6872
-     */
+    #[Group('ZF-6872')]
     public function testSetReplyTo()
     {
         $mail = new Zend_Mail('UTF-8');
@@ -826,10 +822,8 @@ class Zend_Mail_MailTest extends PHPUnit\Framework\TestCase
         $this->assertEquals('=?UTF-8?Q?=E2=82=A0!?= <foo@zend.com>', $headers['Reply-To'][0]);
     }
 
-    /**
-     * @group ZF-1688
-     * @group ZF-2559
-     */
+    #[Group('ZF-1688')]
+    #[Group('ZF-2559')]
     public function testSetHeaderEncoding()
     {
         $mail = new Zend_Mail();
@@ -838,11 +832,9 @@ class Zend_Mail_MailTest extends PHPUnit\Framework\TestCase
         $this->assertEquals(Zend_Mime::ENCODING_BASE64, $mail->getHeaderEncoding());
     }
 
-    /**
-     * @group ZF-1688
-     * @dataProvider dataSubjects
-     * @doesNotPerformAssertions
-     */
+    #[Group('ZF-1688')]
+    #[DataProvider('dataSubjects')]
+    #[DoesNotPerformAssertions]
     public function testIfLongSubjectsHaveCorrectLineBreaksAndEncodingMarks($subject)
     {
         $mail = new Zend_Mail('UTF-8');
@@ -851,9 +843,7 @@ class Zend_Mail_MailTest extends PHPUnit\Framework\TestCase
         $this->assertMailHeaderConformsToRfc($headers['Subject'][0]);
     }
 
-    /**
-     * @group ZF-7702
-     */
+    #[Group('ZF-7702')]
     public function testReplyToIsNoRecipient()
     {
         $mail = new Zend_Mail();
@@ -937,9 +927,7 @@ class Zend_Mail_MailTest extends PHPUnit\Framework\TestCase
         $this->assertEquals($headers['Reply-To'][0], 'Foo Bar <foo@example.com>');
     }
 
-    /**
-     * @group ZF-9011
-     */
+    #[Group('ZF-9011')]
     public function testSendmailTransportShouldAcceptConfigAndArrayAsConstructor()
     {
         $mail = new Zend_Mail('UTF-8');
@@ -957,10 +945,7 @@ class Zend_Mail_MailTest extends PHPUnit\Framework\TestCase
         $this->assertEquals($expected, $transportMock->parameters);
     }
 
-    /**
-     * @group ZF-9011
-     *
-     */
+    #[Group('ZF-9011')]
     public function testSendmailTransportThrowsExceptionWithInvalidParams()
     {
         $mail = new Zend_Mail('UTF-8');
@@ -974,9 +959,7 @@ class Zend_Mail_MailTest extends PHPUnit\Framework\TestCase
         $mail->send($transport);
     }
 
-    /**
-     * @group ZF-10367
-     */
+    #[Group('ZF-10367')]
     public function testClearHeader()
     {
         $mail = new Zend_Mail();

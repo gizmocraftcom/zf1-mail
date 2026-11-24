@@ -19,7 +19,8 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id$
  */
-
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Group;
 
 class Zend_Mail_Header_HeaderNameTest extends PHPUnit\Framework\TestCase
 {
@@ -39,10 +40,8 @@ class Zend_Mail_Header_HeaderNameTest extends PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @dataProvider getFilterNames
-     * @group ZF2015-04
-     */
+    #[DataProvider('getFilterNames')]
+    #[Group('ZF2015-04')]
     public function testFilterName($name, $expected)
     {
         $this->assertEquals($expected, Zend_Mail_Header_HeaderName::filter($name));
@@ -61,10 +60,8 @@ class Zend_Mail_Header_HeaderNameTest extends PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @dataProvider validateNames
-     * @group ZF2015-04
-     */
+    #[DataProvider('validateNames')]
+    #[Group('ZF2015-04')]
     public function testValidateName($name, $assertion)
     {
         $this->{$assertion}(Zend_Mail_Header_HeaderName::isValid($name));
@@ -80,10 +77,8 @@ class Zend_Mail_Header_HeaderNameTest extends PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @dataProvider assertNames
-     * @group ZF2015-04
-     */
+    #[DataProvider('assertNames')]
+    #[Group('ZF2015-04')]
     public function testAssertValidRaisesExceptionForInvalidNames($name)
     {
         $this->expectException('Zend_Mail_Exception');

@@ -19,7 +19,8 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id$
  */
-
+use PHPUnit\Framework\Attributes\DoesNotPerformAssertions;
+use PHPUnit\Framework\Attributes\Group;
 
 /**
  * @category   Zend
@@ -27,8 +28,8 @@
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @group      Zend_Mail
  */
+#[Group('Zend_Mail')]
 class Zend_Mail_SmtpTest extends PHPUnit\Framework\TestCase
 {
     protected $_params;
@@ -48,6 +49,7 @@ class Zend_Mail_SmtpTest extends PHPUnit\Framework\TestCase
                                'auth'     => TESTS_ZEND_MAIL_SMTP_AUTH);
     }
 
+    #[DoesNotPerformAssertions]
     public function testTransportSetup()
     {
         try {

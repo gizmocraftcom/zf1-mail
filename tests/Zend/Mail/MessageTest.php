@@ -19,7 +19,8 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id$
  */
-
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Group;
 
 /**
  * @category   Zend
@@ -27,8 +28,8 @@
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @group      Zend_Mail
  */
+#[Group('Zend_Mail')]
 class Zend_Mail_MessageTest extends PHPUnit\Framework\TestCase
 {
     protected $_file;
@@ -278,9 +279,7 @@ class Zend_Mail_MessageTest extends PHPUnit\Framework\TestCase
         $this->assertTrue($message->countParts() == 0);
     }
 
-    /**
-     * @group ZF-5209
-     */
+    #[Group('ZF-5209')]
     public function testCheckingHasHeaderFunctionality()
     {
         $message = new Zend_Mail_Message(array('headers' => array('subject' => 'foo')));
@@ -402,9 +401,7 @@ class Zend_Mail_MessageTest extends PHPUnit\Framework\TestCase
         $this->assertEquals(Zend_Mime_Decode::splitHeaderField($header, 'baz'), 42);
     }
 
-    /**
-     * @group ZF-11514
-     */
+    #[Group('ZF-11514')]
     public function testConstructorMergesConstructorFlagsIntoDefaultFlags()
     {
         $message = new ZF11514_Mail_Message(array(
@@ -418,9 +415,7 @@ class Zend_Mail_MessageTest extends PHPUnit\Framework\TestCase
         $this->assertEquals('constructor', $flags['constructor']);
     }
 
-    /**
-     * @group ZF-3745
-     */
+    #[Group('ZF-3745')]
     public function testBackwardsCompatibilityMaintainedWhenPartClassNotSpecified()
     {
         $message = new Zend_Mail_Message(array('file' => $this->_file));
@@ -430,9 +425,7 @@ class Zend_Mail_MessageTest extends PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @group ZF-3745
-     */
+    #[Group('ZF-3745')]
     public function testMessageAcceptsPartClassOverrideViaConstructor()
     {
         $message = new Zend_Mail_Message(array(
@@ -448,9 +441,7 @@ class Zend_Mail_MessageTest extends PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @group ZF-3745
-     */
+    #[Group('ZF-3745')]
     public function testMessageAcceptsPartClassOverrideViaSetter()
     {
         $message = new Zend_Mail_Message(array('file' => $this->_file));
@@ -473,10 +464,8 @@ class Zend_Mail_MessageTest extends PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @dataProvider invalidHeaders
-     * @group ZF2015-04
-     */
+    #[DataProvider('invalidHeaders')]
+    #[Group('ZF2015-04')]
     public function testRaisesExceptionWhenProvidedWithHeaderContainingCRLFInjection($name, $value)
     {
         $headers = array($name => $value);

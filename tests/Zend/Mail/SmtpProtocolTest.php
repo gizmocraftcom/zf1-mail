@@ -19,7 +19,8 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id$
  */
-
+use PHPUnit\Framework\Attributes\Depends;
+use PHPUnit\Framework\Attributes\Group;
 
 /**
  * @category   Zend
@@ -27,8 +28,8 @@
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @group      Zend_Mail
  */
+#[Group('Zend_Mail')]
 class Zend_Mail_SmtpProtocolTest extends PHPUnit\Framework\TestCase
 {
     /**
@@ -52,9 +53,7 @@ class Zend_Mail_SmtpProtocolTest extends PHPUnit\Framework\TestCase
         ), $this->_protocol->dialog);
     }
 
-    /**
-     * @depends testEhlo
-     */
+    #[Depends('testEhlo')]
     public function testHeloIsOnlyAllowedOncePerSession()
     {
         $this->expectException(\Zend_Mail_Protocol_Exception::class);
@@ -63,9 +62,7 @@ class Zend_Mail_SmtpProtocolTest extends PHPUnit\Framework\TestCase
         $this->_protocol->helo(); // do it again
     }
 
-    /**
-     * @depends testEhlo
-     */
+    #[Depends('testEhlo')]
     public function testEhloFallsBackToHelo()
     {
         $this->_protocol->responseBuffer = array(
@@ -86,9 +83,7 @@ class Zend_Mail_SmtpProtocolTest extends PHPUnit\Framework\TestCase
         ), $this->_protocol->dialog);
     }
 
-    /**
-     * @depends testEhlo
-     */
+    #[Depends('testEhlo')]
     public function testMail()
     {
         $p              = $this->_protocol;
@@ -101,9 +96,7 @@ class Zend_Mail_SmtpProtocolTest extends PHPUnit\Framework\TestCase
         $this->assertEquals($expectedDialog, $this->_protocol->dialog);
     }
 
-    /**
-     * @depends testMail
-     */
+    #[Depends('testMail')]
     public function testRcptExpects250()
     {
         $p              = $this->_protocol;
@@ -120,9 +113,7 @@ class Zend_Mail_SmtpProtocolTest extends PHPUnit\Framework\TestCase
         $this->assertEquals($expectedDialog, $this->_protocol->dialog);
     }
 
-    /**
-     * @depends testMail
-     */
+    #[Depends('testMail')]
     public function testRcptExpects251()
     {
         $p              = $this->_protocol;
@@ -140,9 +131,7 @@ class Zend_Mail_SmtpProtocolTest extends PHPUnit\Framework\TestCase
     }
 
 
-    /**
-     * @depends testRcptExpects250
-     */
+    #[Depends('testRcptExpects250')]
     public function testData()
     {
         $p              = $this->_protocol;
@@ -166,9 +155,7 @@ class Zend_Mail_SmtpProtocolTest extends PHPUnit\Framework\TestCase
         $this->assertEquals($expectedDialog, $this->_protocol->dialog);
     }
 
-    /**
-     * @depends testEhlo
-     */
+    #[Depends('testEhlo')]
     public function testRset()
     {
         $expectedDialog = $this->_connectAndEhlo();
@@ -182,10 +169,8 @@ class Zend_Mail_SmtpProtocolTest extends PHPUnit\Framework\TestCase
         $this->assertEquals($expectedDialog, $this->_protocol->dialog);
     }
 
-    /**
-     * @depends testEhlo
-     * @group ZF-1377
-     */
+    #[Depends('testEhlo')]
+    #[Group('ZF-1377')]
     public function testRsetExpects220()
     {
         $expectedDialog = $this->_connectAndEhlo();
@@ -200,9 +185,7 @@ class Zend_Mail_SmtpProtocolTest extends PHPUnit\Framework\TestCase
         $this->assertEquals($expectedDialog, $this->_protocol->dialog);
     }
 
-    /**
-     * @depends testEhlo
-     */
+    #[Depends('testEhlo')]
     public function testQuit()
     {
         $p              = $this->_protocol;
@@ -216,10 +199,8 @@ class Zend_Mail_SmtpProtocolTest extends PHPUnit\Framework\TestCase
         $this->assertEquals($expectedDialog, $this->_protocol->dialog);
     }
 
-    /**
-     * @depends testMail
-     * @group ZF-8511
-     */
+    #[Depends('testMail')]
+    #[Group('ZF-8511')]
     public function testMultilineResponsesAreNotTruncated()
     {
         $this->_connectAndEhlo();
@@ -235,10 +216,8 @@ class Zend_Mail_SmtpProtocolTest extends PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @depends testMail
-     * @group ZF-10249
-     */
+    #[Depends('testMail')]
+    #[Group('ZF-10249')]
     public function testExceptionCodeIsSmtpStatusCode()
     {
         $p = $this->_protocol;
@@ -254,9 +233,7 @@ class Zend_Mail_SmtpProtocolTest extends PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @depends testMail
-     */
+    #[Depends('testMail')]
     public function testRcptThrowsExceptionOnUnexpectedResponse()
     {
         $this->expectException(\Zend_Mail_Protocol_Exception::class);
@@ -284,9 +261,7 @@ class Zend_Mail_SmtpProtocolTest extends PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @depends testEhlo
-     */
+    #[Depends('testEhlo')]
     public function testRcptBeforeMailThrowsException()
     {
         $this->_connectAndEhlo();
@@ -299,9 +274,7 @@ class Zend_Mail_SmtpProtocolTest extends PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @depends testEhlo
-     */
+    #[Depends('testEhlo')]
     public function testDataBeforeRcptThrowsException()
     {
         $this->expectException(\Zend_Mail_Protocol_Exception::class);

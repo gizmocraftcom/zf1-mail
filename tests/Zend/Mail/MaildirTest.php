@@ -19,7 +19,8 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id$
  */
-
+use PHPUnit\Framework\Attributes\DoesNotPerformAssertions;
+use PHPUnit\Framework\Attributes\Group;
 
 /**
  * @category   Zend
@@ -27,8 +28,8 @@
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @group      Zend_Mail
  */
+#[Group('Zend_Mail')]
 class Zend_Mail_MaildirTest extends PHPUnit\Framework\TestCase
 {
     protected $_originalMaildir;
@@ -104,6 +105,7 @@ class Zend_Mail_MaildirTest extends PHPUnit\Framework\TestCase
         }
     }
 
+    #[DoesNotPerformAssertions]
     public function testLoadOk()
     {
         try {
@@ -113,6 +115,7 @@ class Zend_Mail_MaildirTest extends PHPUnit\Framework\TestCase
         }
     }
 
+    #[DoesNotPerformAssertions]
     public function testLoadConfig()
     {
         try {
@@ -122,6 +125,7 @@ class Zend_Mail_MaildirTest extends PHPUnit\Framework\TestCase
         }
     }
 
+    #[DoesNotPerformAssertions]
     public function testLoadFailure()
     {
         try {
@@ -133,6 +137,7 @@ class Zend_Mail_MaildirTest extends PHPUnit\Framework\TestCase
         $this->fail('no exception raised while loading unknown dir');
     }
 
+    #[DoesNotPerformAssertions]
     public function testLoadInvalid()
     {
         try {
@@ -144,6 +149,7 @@ class Zend_Mail_MaildirTest extends PHPUnit\Framework\TestCase
         $this->fail('no exception while loading invalid dir');
     }
 
+    #[DoesNotPerformAssertions]
     public function testClose()
     {
         $mail = new Zend_Mail_Storage_Maildir(array('dirname' => $this->_maildir));
@@ -169,6 +175,7 @@ class Zend_Mail_MaildirTest extends PHPUnit\Framework\TestCase
         $this->assertFalse($mail->hasCreate);
     }
 
+    #[DoesNotPerformAssertions]
     public function testNoop()
     {
         $mail = new Zend_Mail_Storage_Maildir(array('dirname' => $this->_maildir));
@@ -240,6 +247,7 @@ class Zend_Mail_MaildirTest extends PHPUnit\Framework\TestCase
         $this->assertEquals('Fair river! in thy bright, clear flow', trim($content));
     }
 
+    #[DoesNotPerformAssertions]
     public function testFetchWrongSize()
     {
         $mail = new Zend_Mail_Storage_Maildir(array('dirname' => $this->_maildir));
@@ -253,6 +261,7 @@ class Zend_Mail_MaildirTest extends PHPUnit\Framework\TestCase
         $this->fail('no exception raised while getting size for message 0');
     }
 
+    #[DoesNotPerformAssertions]
     public function testFetchWrongMessageBody()
     {
         $mail = new Zend_Mail_Storage_Maildir(array('dirname' => $this->_maildir));
@@ -266,6 +275,7 @@ class Zend_Mail_MaildirTest extends PHPUnit\Framework\TestCase
         $this->fail('no exception raised while fetching message 0');
     }
 
+    #[DoesNotPerformAssertions]
     public function testFailedRemove()
     {
         $mail = new Zend_Mail_Storage_Maildir(array('dirname' => $this->_maildir));
@@ -317,6 +327,7 @@ class Zend_Mail_MaildirTest extends PHPUnit\Framework\TestCase
         }
     }
 
+    #[DoesNotPerformAssertions]
     public function testWrongUniqueId()
     {
         $mail = new Zend_Mail_Storage_Maildir(array('dirname' => $this->_maildir));
@@ -354,16 +365,19 @@ class Zend_Mail_MaildirTest extends PHPUnit\Framework\TestCase
         }
     }
 
+    #[DoesNotPerformAssertions]
     public function testCurIsFile()
     {
         $this->isFileTest('cur');
     }
 
+    #[DoesNotPerformAssertions]
     public function testNewIsFile()
     {
         $this->isFileTest('new');
     }
 
+    #[DoesNotPerformAssertions]
     public function testTmpIsFile()
     {
         $this->isFileTest('tmp');
@@ -389,11 +403,13 @@ class Zend_Mail_MaildirTest extends PHPUnit\Framework\TestCase
         }
     }
 
+    #[DoesNotPerformAssertions]
     public function testNotReadableCur()
     {
         $this->notReadableTest('cur');
     }
 
+    #[DoesNotPerformAssertions]
     public function testNotReadableNew()
     {
         $this->notReadableTest('new');

@@ -19,7 +19,7 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id$
  */
-
+use PHPUnit\Framework\Attributes\Group;
 
 /**
  * @category   Zend
@@ -27,8 +27,8 @@
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @group      Zend_Mail
  */
+#[Group('Zend_Mail')]
 class Zend_Mail_SmtpOfflineTest extends PHPUnit\Framework\TestCase
 {
     protected $_params;
@@ -42,9 +42,7 @@ class Zend_Mail_SmtpOfflineTest extends PHPUnit\Framework\TestCase
                                'auth'     => TESTS_ZEND_MAIL_SMTP_AUTH);
     }
 
-    /**
-     * @group ZF-8988
-     */
+    #[Group('ZF-8988')]
     public function testReturnPathIsUsedAsMailFrom()
     {
         $connectionMock = $this->getMockBuilder('Zend_Mail_Protocol_Smtp')->getMock();
