@@ -313,10 +313,10 @@ class Zend_Mail_Storage_Maildir extends Zend_Mail_Storage_Abstract
             if ($size && $size[0] == 'S' && $size[1] == '=') {
                 $size = substr($size, 2);
             }
-            if (!ctype_digit($size)) {
+            if (!is_string($size) || !ctype_digit($size)) {
                 $size = null;
             }
-            @list($version, $flags) = explode(',', $info, 2);
+            @list($version, $flags) = explode(',', (string) $info, 2);
             if ($version != 2) {
                 $flags = '';
             }

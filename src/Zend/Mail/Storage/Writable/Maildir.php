@@ -767,7 +767,7 @@ class Zend_Mail_Storage_Writable_Maildir extends Zend_Mail_Storage_Folder_Maildi
                 }
 
 
-                while (($entry = readdir()) !== false) {
+                while (($entry = readdir($dh)) !== false) {
                     if ($entry[0] == '.' || !is_file($dirname . $entry)) {
                         continue;
                     }
@@ -858,6 +858,10 @@ class Zend_Mail_Storage_Writable_Maildir extends Zend_Mail_Storage_Folder_Maildi
             }
             unset($maildirsize[0]);
             foreach ($maildirsize as $line) {
+                if (trim($line) === '') {
+                    // e.g. the trailing newline of the maildirsize file
+                    continue;
+                }
                 list($size, $count) = explode(' ', trim($line));
                 $total_size += $size;
                 $messages += $count;
